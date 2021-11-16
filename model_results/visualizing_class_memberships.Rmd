@@ -6,8 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 pacman::p_load(tidyverse, DT, plotly, sjlabelled)
-survey <- read_spss("~/Documents/data/GSS2018.sav")
-df <- read_rds("survey_data_class_predictions.rds")
+survey <- read_spss("/home/linarek/Documents/data/GSS2018.sav")
+df <- read_rds("/home/linarek/mixture_models/model_results/survey_data_class_predictions.rds")
 ```
 
 
@@ -36,7 +36,6 @@ survey %>% select(outcome_variables) %>%  get_label()
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
 df %>% group_by(class_prediction) %>%  
   count() %>%  
-  ungroup() %>% 
   mutate(proportion = n/sum(n)) %>% 
   datatable()
 ```
@@ -67,7 +66,6 @@ survey %>% select(demogrpahic_variables) %>%  get_labels()
 df %>% 
   group_by(class_prediction) %>% 
   count(SEX) %>% 
-  ungroup() %>% 
   mutate(proportion = n/sum(n)) %>% 
   plot_ly(x = ~SEX, y = ~proportion, type = 'bar', colors=~class_prediction, name = ~class_prediction) %>% 
   layout(yaxis = list(title = 'Proportion', range=c(0,1)), barmode = 'group')
@@ -82,7 +80,6 @@ df %>%
 df %>% 
   group_by(class_prediction) %>% 
   count(RACE) %>% 
-  ungroup() %>% 
   mutate(proportion = n/sum(n)) %>% 
   plot_ly(x = ~RACE, y = ~proportion, type = 'bar', colors=~class_prediction, name = ~class_prediction) %>% 
   layout(yaxis = list(title = 'Proportion', range=c(0,1)), barmode = 'group')
@@ -97,7 +94,6 @@ df %>%
 df %>% 
   group_by(class_prediction) %>% 
   count(CLASS) %>% 
-  ungroup() %>% 
   mutate(proportion = n/sum(n)) %>% 
   plot_ly(x = ~CLASS, y = ~proportion, type = 'bar', colors=~class_prediction, name = ~class_prediction) %>% 
   layout(yaxis = list(title = 'Proportion', range=c(0,1)), barmode = 'group')
@@ -112,7 +108,6 @@ df %>%
 df %>% 
   group_by(class_prediction) %>% 
   count(PARTYID) %>% 
-  ungroup() %>% 
   mutate(proportion = n/sum(n)) %>% 
   plot_ly(x = ~PARTYID, y = ~proportion, type = 'bar', colors=~class_prediction, name = ~class_prediction) %>% 
   layout(yaxis = list(title = 'Proportion', range=c(0,1)), barmode = 'stack')
