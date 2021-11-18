@@ -34,8 +34,8 @@ survey %>% select(outcome_variables) %>%  get_label()
 
 ### breakdown of class membership predictions
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
-df %>% group_by(class_prediction) %>%  
-  count() %>%  
+df %>% 
+  count(class_prediction) %>%  
   mutate(proportion = n/sum(n)) %>% 
   datatable()
 ```
